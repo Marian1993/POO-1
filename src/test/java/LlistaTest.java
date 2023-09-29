@@ -6,15 +6,14 @@ import org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LlistaTest<T> {
+public class LlistaTest {
 
-         public List<T> llista = new ArrayList<>();
+         public List<Persona> llista = new ArrayList<>();
 
     @Test
     public void afeguirPersones(){
-
-        llista.add((T) new Persona("Tolo","Moroto",23));
-        llista.add((T) new Persona("Clara","Gual",18));
+        llista.add(new Persona("Tolo","Moroto",23));
+        llista.add(new Persona("Clara","Gual",18));
 
     }
     @Test
@@ -33,7 +32,7 @@ public class LlistaTest<T> {
         llista.remove(0);
     }
     public static void main(String[] args) {
-        LlistaTest<Persona> test = new LlistaTest<>();
+        LlistaTest test = new LlistaTest();
         test.afeguirPersones();
         test.comprovacioDePersones();
         test.eliminarPersona();

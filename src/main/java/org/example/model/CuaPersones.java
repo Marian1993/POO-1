@@ -1,8 +1,8 @@
 package org.example.model;
 
-public interface CuaPersones<T> {
+public interface CuaPersones {
 
-    public void add(T persona);
+    public void add(Persona persona);
     public void remove();
     public int list();
 }
