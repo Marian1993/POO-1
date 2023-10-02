@@ -3,13 +3,14 @@ package org.example.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Llista implements CuaPersones{
+public class CuaPersona implements CuaPersonesI{
 
 
     private List<Persona> persones = new ArrayList<>();
-    public void add(Object persona){
-        persones.add((Persona) persona);
+    public void add(Persona persona){
+        persones.add(persona);
     }
+
     public void remove(){
         persones.remove(0);
     }

@@ -1,9 +1,12 @@
 package org.example;
 
+import org.example.Comparacions.Moix;
 import org.example.model.Mobil;
 import org.example.model.Persona;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -54,5 +57,44 @@ public class Main {
 
  */
 
+
+        Moix tara = new Moix("Tara","No",7,false);
+        Moix pablo = new Moix("Pablo","Siames",4,true);
+        Moix kim = new Moix("Kim","Egipci",9,true);
+        Moix lola = new Moix("Lola","Siames",5 ,false);
+
+        /*int comparaTaraPablo = tara.compareTo(pablo);
+        int comparaPabloTara = pablo.compareTo(tara);
+
+        System.out.println("Compara Tara Pablo = " + comparaTaraPablo);
+        System.out.println("Compara Pablo Tara = " + comparaPabloTara);
+
+         */
+
+
+        List<Moix> moixos = new ArrayList<>();
+        moixos.add(tara);
+        moixos.add(pablo);
+        moixos.add(kim);
+        moixos.add(lola);
+        Collections.sort(moixos, new Comparator<Moix>() {
+            @Override
+            public int compare(Moix o1, Moix o2) {
+                return o1.getNom().compareTo(o2.getNom());
+            }
+        });
+
+
+        //Sap quin metode a d'agafar, perque comparable es una interficie funcional(nomes te un metode),
+        //Això es diu lamba (a,b) -> ...., sa feltxa fa de return
+        Collections.sort(moixos,((a, b) -> a.getNom().compareTo(b.getNom())));
+
+
+        //Aquesta es una altre interficie funcional,que ens retorna tots els moixos que tenen menys o igual a 5 anys
+        List<Moix> moixosJoves = moixos.stream().filter(m -> m.getEdat() <= 5).toList();
+
+        for (Moix moix:moixosJoves) {
+            System.out.println(moix.getNom());
+        }
     }
 }

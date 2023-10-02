@@ -1,41 +1,40 @@
-import org.example.model.Llista;
-import org.example.model.Persona;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.example.model.CuaPersona;
+import org.example.model.Persona;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class LlistaTest {
+    private CuaPersona cua;
 
-         public List<Persona> llista = new ArrayList<>();
 
-    @Test
-    public void afeguirPersones(){
-        llista.add(new Persona("Tolo","Moroto",23));
-        llista.add(new Persona("Clara","Gual",18));
-
-    }
-    @Test
-    public void comprovacioDePersones(){
-
-        if(llista.size() == 2){
-            System.out.println("HI ha dues persones");
-        }else {
-            System.out.println("No hi ha 2 persones");
-        }
+    @Before
+    public void setUp() {
+        cua = new CuaPersona();
     }
 
     @Test
-    public void eliminarPersona(){
-
-        llista.remove(0);
+    public void testAdd() {
+        cua.add(new Persona("Tolo","Moroto",23));
+        cua.add(new Persona("Clara","Gual",18));
+        assertEquals(2, cua.list());
     }
-    public static void main(String[] args) {
-        LlistaTest test = new LlistaTest();
-        test.afeguirPersones();
-        test.comprovacioDePersones();
-        test.eliminarPersona();
-        test.comprovacioDePersones();
+
+    @Test
+    public void testRemove() {
+        cua.add(new Persona("Tolo","Moroto",23));
+        cua.add(new Persona("Clara","Gual",18));
+        cua.remove();
+        assertEquals(1, cua.list());
+    }
+
+    @Test
+    public void testList() {
+        assertEquals(0, cua.list());
+        cua.add(new Persona("Tolo","Moroto",23));
+        assertEquals(1, cua.list());
     }
 }
