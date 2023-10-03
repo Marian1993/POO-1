@@ -12,7 +12,13 @@ public class CuaPersona implements CuaPersonesI{
     }
 
     public void remove(){
-        persones.remove(0);
+
+        try{
+            //Faig que elimini el primer de la cua, perque sigui FIFO
+            persones.remove(0);
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("La llista està buida");
+        }
     }
     public int list(){
         return persones.size();
