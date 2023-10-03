@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Comparacions.Moix;
+import org.example.PracticaNasa.NasaService;
 import org.example.model.Mobil;
 import org.example.model.Persona;
 
@@ -55,7 +56,7 @@ public class Main {
             System.out.println("El mobil " + m.getModel() + " pertany a " + m.getPersona().getNom());
         }
 
- */
+
 
 
         Moix tara = new Moix("Tara","No",7,false);
@@ -69,7 +70,7 @@ public class Main {
         System.out.println("Compara Tara Pablo = " + comparaTaraPablo);
         System.out.println("Compara Pablo Tara = " + comparaPabloTara);
 
-         */
+
 
 
         List<Moix> moixos = new ArrayList<>();
@@ -95,6 +96,15 @@ public class Main {
 
         for (Moix moix:moixosJoves) {
             System.out.println(moix.getNom());
+        }
+
+ */
+
+        try{
+            NasaService nasaService = new NasaService();
+            nasaService.getAsteroide(null,null);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }
