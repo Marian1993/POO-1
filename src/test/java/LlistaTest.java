@@ -30,6 +30,17 @@ public class LlistaTest {
         cua.remove();
         assertEquals(1, cua.list());
     }
+    @Test
+    public void testRemoveMoreThanCapable() {
+        cua.add(new Persona("Tolo","Moroto",23));
+        cua.add(new Persona("Clara","Gual",18));
+        cua.remove();
+        cua.remove();
+        cua.remove();
+        assertEquals(0, cua.list());
+    }
+
+
 
     @Test
     public void testList() {
