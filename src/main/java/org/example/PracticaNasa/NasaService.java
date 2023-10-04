@@ -3,65 +3,90 @@ package org.example.PracticaNasa;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import netscape.javascript.JSObject;
 
 import java.io.*;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class NasaService {
 
-    private final String key = "hPz3kslKsnnCv9Ki2SsGcJqRQSZbamBmIfLY1MaM";
+    /** TODO:posar la clau API dins porperties*/
+    private final String API_KEY = "hPz3kslKsnnCv9Ki2SsGcJqRQSZbamBmIfLY1MaM";
+    private final String URL_NASA = "https://api.nasa.gov/neo/rest/v1/feed";
 
     public List<Asteroide> getAsteroide(LocalDateTime avui,LocalDateTime ahir) throws IOException {
 
-        connexio(key);
 
+        //String avuiParse = avui.format(DateTimeFormatter.ISO_OFFSET_DATE);
+        String ahirParse = "2023-10-02";
+        String avuiParse = "2023-10-03";
+        //System.out.println(avuiParse);
+
+        final String url = URL_NASA + "?start_date=" + avuiParse + "&end_date=" + ahirParse + "&api_key=" + API_KEY;
+        String json = connexio(url);
+
+
+
+
+        //Parseig d'asteroides
+        Gson gson = new Gson();
+        JsonObject nasaResponse =  gson.fromJson(json, JsonObject.class);
+        System.out.println(nasaResponse.keySet());
+        //En Joan ho ha possa't aixi --> nasaResponse.get("near_earth_objects").getAsJsonObject()
+        JsonObject nearEarthObjects =  nasaResponse.getAsJsonObject("near_earth_objects");
+        //Te dos objectes un es la fetxa d'avui i l'altre es la fetxa d'ahir
+        JsonArray asteriodesAhirJson =  nasaResponse.getAsJsonArray(ahirParse);
+        JsonArray asteriodesAvuiJson =  nasaResponse.getAsJsonArray(avuiParse);
+
+        List<Asteroide> asteroides = new ArrayList<>();
+
+        for (JsonElement obj:asteriodesAhirJson) {
+            Asteroide asteroid = new Asteroide();
+            asteroid.setNom(obj.getAsJsonObject().get("name").getAsString());
+
+
+            Double diametreMin = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometer").getAsJsonObject().get("estimated_diameter_min").getAsDouble();
+            Double diametreMax = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometer").getAsJsonObject().get("estimated_diameter_max").getAsDouble();
+            asteroid.setDiametre((float)(diametreMin + diametreMax) /2);
+
+            //Cercares perill dels asteroides
+
+            asteroides.add(asteroid);
+
+        }
+
+        //Mapeig modern Acabar  activitat
+        /*
+        List<Asteroide> asteroideAvui = asteriodesAvuiJson.asList().stream().map( obj ->{
+            obj.
+        }).toList();
+
+        asteroids.addAll(asteroidesAvui);
+         */
+
+
+
+
+        /*
         JsonArray array = pasarArchivoAJsonArray();
-
         ArrayList<Asteroide> jasonArray = new Gson().fromJson(array.toString(), ArrayList.class);
 
-        return jasonArray;
-    }
-    private JsonArray pasarArchivoAJsonArray() throws IOException {
-        JsonArray asteroides = new JsonArray();
-        String json;
+         */
 
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\maria\\IdeaProjects\\POO-1\\src\\main\\java\\org\\example\\PracticaNasa\\JsonFile.txt"));
-
-        while ((json = br.readLine()) != null){
-            if(json != null && !json.isEmpty()){
-                List<String> objecte = new ArrayList<String>();
-                String[] split = json.split(",");
-                for (int i = 0; i < split.length; i++) {
-
-                    //System.out.println(split[i]);
-                    if(split[i].contains("name")) {
-                        objecte.add(split[i]);
-
-                        objecte.forEach((n) -> System.out.println(n));
-                    }
-
-                }
-            }
-        }
-        return asteroides;
+        return null;
     }
 
-
-
-    private void connexio(String clau) throws IOException {
-        URL url = new URL("https://api.nasa.gov/neo/rest/v1/feed?start_date=2023-10-02&end_date=2023-10-03&api_key=" + clau);
+    private String connexio(String api) throws IOException {
+        URL url = new URL(api);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
-
-        File file = new File("C:\\Users\\maria\\IdeaProjects\\POO-1\\src\\main\\java\\org\\example\\PracticaNasa\\JsonFile.txt");
-        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
@@ -69,14 +94,8 @@ public class NasaService {
         while ((inputLine = br.readLine()) != null){
             outputLine += inputLine;
 
-
-
-
-            bw.write(outputLine);
-            bw.close();
-
         }
         br.close();
-        System.out.println(outputLine);
+        return outputLine;
     }
 }

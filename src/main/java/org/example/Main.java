@@ -5,6 +5,7 @@ import org.example.PracticaNasa.NasaService;
 import org.example.model.Mobil;
 import org.example.model.Persona;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -99,6 +100,7 @@ public class Main {
         }
 
  */
+        //LocalDateTime avui = LocalDateTime.of(2023,10,3,10,100);
 
         try{
             NasaService nasaService = new NasaService();
