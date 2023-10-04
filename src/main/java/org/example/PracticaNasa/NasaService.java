@@ -33,8 +33,6 @@ public class NasaService {
         String json = connexio(url);
 
 
-
-
         //Parseig d'asteroides
         Gson gson = new Gson();
         JsonObject nasaResponse =  gson.fromJson(json, JsonObject.class);
@@ -42,44 +40,42 @@ public class NasaService {
         //En Joan ho ha possa't aixi --> nasaResponse.get("near_earth_objects").getAsJsonObject()
         JsonObject nearEarthObjects =  nasaResponse.getAsJsonObject("near_earth_objects");
         //Te dos objectes un es la fetxa d'avui i l'altre es la fetxa d'ahir
-        JsonArray asteriodesAhirJson =  nasaResponse.getAsJsonArray(ahirParse);
-        JsonArray asteriodesAvuiJson =  nasaResponse.getAsJsonArray(avuiParse);
-
+        JsonArray asteriodesAhirJson =  nearEarthObjects.getAsJsonArray(ahirParse);
+        JsonArray asteriodesAvuiJson =  nearEarthObjects.getAsJsonArray(avuiParse);
+        System.out.println(asteriodesAhirJson.size());
         List<Asteroide> asteroides = new ArrayList<>();
-
+/*
         for (JsonElement obj:asteriodesAhirJson) {
+
             Asteroide asteroid = new Asteroide();
+
+            //Això son es parsetjos del json a les variables del l'objecte Asteroide, i assignats a les variables
             asteroid.setNom(obj.getAsJsonObject().get("name").getAsString());
-
-
-            Double diametreMin = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometer").getAsJsonObject().get("estimated_diameter_min").getAsDouble();
-            Double diametreMax = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometer").getAsJsonObject().get("estimated_diameter_max").getAsDouble();
+            Double diametreMin = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometers").getAsJsonObject().get("estimated_diameter_min").getAsDouble();
+            Double diametreMax = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometers").getAsJsonObject().get("estimated_diameter_max").getAsDouble();
             asteroid.setDiametre((float)(diametreMin + diametreMax) /2);
-
-            //Cercares perill dels asteroides
-
+            asteroid.setEsPerillos(obj.getAsJsonObject().get("is_potentially_hazardous_asteroid").getAsBoolean());
             asteroides.add(asteroid);
 
         }
 
+ */
+
         //Mapeig modern Acabar  activitat
-        /*
+
         List<Asteroide> asteroideAvui = asteriodesAvuiJson.asList().stream().map( obj ->{
-            obj.
+            String name = obj.getAsJsonObject().get("name").getAsString();
+            Double diametreMin = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometers").getAsJsonObject().get("estimated_diameter_min").getAsDouble();
+            Double diametreMax = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometers").getAsJsonObject().get("estimated_diameter_max").getAsDouble();
+            Boolean isDangerous = obj.getAsJsonObject().get("is_potentially_hazardous_asteroid").getAsBoolean();
+            return new Asteroide(name,((float)(diametreMin + diametreMax)/2),isDangerous);
         }).toList();
 
-        asteroids.addAll(asteroidesAvui);
-         */
+        asteroides.addAll(asteroideAvui);
 
-
-
-
-        /*
-        JsonArray array = pasarArchivoAJsonArray();
-        ArrayList<Asteroide> jasonArray = new Gson().fromJson(array.toString(), ArrayList.class);
-
-         */
-
+        for (Asteroide as:asteroides) {
+            System.out.println("Nom: " + as.getNom() + ", diametre: " + as.getDiametre() + ", es perillos: " + as.isEsPerillos());
+        }
         return null;
     }
 
