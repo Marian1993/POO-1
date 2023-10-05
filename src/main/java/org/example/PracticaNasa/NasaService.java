@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class NasaService {
+public class NasaService implements ConnectionI{
 
     /** TODO:posar la clau API dins porperties*/
     private final String API_KEY = "hPz3kslKsnnCv9Ki2SsGcJqRQSZbamBmIfLY1MaM";
@@ -43,6 +43,9 @@ public class NasaService {
         JsonArray asteriodesAhirJson =  nearEarthObjects.getAsJsonArray(ahirParse);
         JsonArray asteriodesAvuiJson =  nearEarthObjects.getAsJsonArray(avuiParse);
         System.out.println(asteriodesAhirJson.size());
+
+
+        //Mapeig classic
         List<Asteroide> asteroides = new ArrayList<>();
 /*
         for (JsonElement obj:asteriodesAhirJson) {
@@ -61,7 +64,7 @@ public class NasaService {
 
  */
 
-        //Mapeig modern Acabar  activitat
+        //Mapeig modern
 
         List<Asteroide> asteroideAvui = asteriodesAvuiJson.asList().stream().map( obj ->{
             String name = obj.getAsJsonObject().get("name").getAsString();
