@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ConnectionI {
 
-    List<Asteroide> getAsteroide(LocalDateTime avui, LocalDateTime ahir) throws IOException;
+    List<Asteroide> getAsteroide(/*LocalDateTime avui, LocalDateTime ahir*/) throws IOException;
 
     private String connexio(String api) {
         return null;

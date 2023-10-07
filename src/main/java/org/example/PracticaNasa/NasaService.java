@@ -21,29 +21,22 @@ public class NasaService implements ConnectionI{
     private final String API_KEY = "hPz3kslKsnnCv9Ki2SsGcJqRQSZbamBmIfLY1MaM";
     private final String URL_NASA = "https://api.nasa.gov/neo/rest/v1/feed";
 
-    public List<Asteroide> getAsteroide(LocalDateTime avui,LocalDateTime ahir) throws IOException {
+    public List<Asteroide> getAsteroide() throws IOException {
 
-
-        //String avuiParse = avui.format(DateTimeFormatter.ISO_OFFSET_DATE);
         String ahirParse = "2023-10-02";
         String avuiParse = "2023-10-03";
-        //System.out.println(avuiParse);
 
         final String url = URL_NASA + "?start_date=" + avuiParse + "&end_date=" + ahirParse + "&api_key=" + API_KEY;
         String json = connexio(url);
 
-
         //Parseig d'asteroides
         Gson gson = new Gson();
         JsonObject nasaResponse =  gson.fromJson(json, JsonObject.class);
-        System.out.println(nasaResponse.keySet());
         //En Joan ho ha possa't aixi --> nasaResponse.get("near_earth_objects").getAsJsonObject()
         JsonObject nearEarthObjects =  nasaResponse.getAsJsonObject("near_earth_objects");
         //Te dos objectes un es la fetxa d'avui i l'altre es la fetxa d'ahir
         JsonArray asteriodesAhirJson =  nearEarthObjects.getAsJsonArray(ahirParse);
         JsonArray asteriodesAvuiJson =  nearEarthObjects.getAsJsonArray(avuiParse);
-        System.out.println(asteriodesAhirJson.size());
-
 
         //Mapeig classic
         List<Asteroide> asteroides = new ArrayList<>();
@@ -63,7 +56,6 @@ public class NasaService implements ConnectionI{
         }
 
  */
-
         //Mapeig modern
 
         List<Asteroide> asteroideAvui = asteriodesAvuiJson.asList().stream().map( obj ->{
@@ -76,11 +68,9 @@ public class NasaService implements ConnectionI{
 
         asteroides.addAll(asteroideAvui);
 
-        for (Asteroide as:asteroides) {
-            System.out.println("Nom: " + as.getNom() + ", diametre: " + as.getDiametre() + ", es perillos: " + as.isEsPerillos());
-        }
-        return null;
+        return asteroides;
     }
+
 
     private String connexio(String api) throws IOException {
         URL url = new URL(api);

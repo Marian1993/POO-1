@@ -99,7 +99,7 @@ public class Main {
             System.out.println(moix.getNom());
         }
 
- */
+
         //LocalDateTime avui = LocalDateTime.of(2023,10,3,10,100);
 
         try{
@@ -108,5 +108,9 @@ public class Main {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+
+ */
+
+
     }
 }
