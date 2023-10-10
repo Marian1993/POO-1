@@ -10,6 +10,13 @@ import java.util.List;
 public class AsteroideService {
 
     private ConnectionI connection;
+
+    /*
+    public AsteroideService(ConnectionI font){
+        this.connection = font;
+    }
+
+     */
     public Asteroide getMaxAsteroide(int opcio) throws IOException {
 
         if(opcio == 1){
