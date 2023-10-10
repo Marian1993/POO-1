@@ -1,17 +1,19 @@
 package org.example.PracticaNasa;
 
+import org.example.PracticaNasa.Fonts.FontsI;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ObjecteCelestialService <T extends ObjecteCelestial>{
+public class ObjecteCelestialService <T extends ObjectCelestial>{
 
-    private ConnectionI font;
+    private FontsI font;
 
 
-    public ObjecteCelestialService(ConnectionI font){
+    public ObjecteCelestialService(FontsI font){
         this.font = font;
     }
 
@@ -24,8 +26,10 @@ public class ObjecteCelestialService <T extends ObjecteCelestial>{
 
     public List<T> getPerillos() throws IOException {
 
-        List<T> aPerillosos = (List<T>) this.font.getAsteroide();
+       List<T> aPerillosos = (List<T>) this.font.getAsteroide();
 
-        return aPerillosos.stream().filter(oc -> oc.isPerillos()).toList();
+       return aPerillosos.stream().filter(oc -> oc.isPerillos()).toList();
+
+
     }
 }

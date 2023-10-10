@@ -1,10 +1,13 @@
 package org.example.PracticaNasa;
 
-public abstract class ObjecteCelestial {
+import lombok.experimental.SuperBuilder;
+
+@SuperBuilder
+public abstract class ObjectCelestial {
     private String nomCientific;
 
-    public ObjecteCelestial(String nom) {
-        this.nomCientific = nomCientific;
+    public ObjectCelestial(String nom) {
+        this.nomCientific = nom;
     }
 
     public String getNomCientific(){

@@ -1,4 +1,4 @@
-package org.example.PracticaNasa;
+package org.example.PracticaNasa.Programa;
 
 import java.util.Scanner;
 

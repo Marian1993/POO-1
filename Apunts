@@ -1,0 +1,15 @@
+  //Mapeig classic
+        List<Asteroide> asteroides = new ArrayList<>();
+        for (JsonElement obj:asteriodesAhirJson) {
+
+            Asteroide asteroid = new Asteroide();
+
+            //Això son es parsetjos del json a les variables del l'objecte Asteroide, i assignats a les variables
+            asteroid.setNom(obj.getAsJsonObject().get("name").getAsString());
+            Double diametreMin = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometers").getAsJsonObject().get("estimated_diameter_min").getAsDouble();
+            Double diametreMax = obj.getAsJsonObject().get("estimated_diameter").getAsJsonObject().get("kilometers").getAsJsonObject().get("estimated_diameter_max").getAsDouble();
+            asteroid.setDiametre((float)(diametreMin + diametreMax) /2);
+            asteroid.setEsPerillos(obj.getAsJsonObject().get("is_potentially_hazardous_asteroid").getAsBoolean());
+            asteroides.add(asteroid);
+
+        }
