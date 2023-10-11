@@ -4,6 +4,7 @@ import org.example.PracticaNasa.Asteroides.Asteroide;
 import org.example.PracticaNasa.Fonts.FontsI;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,14 +22,14 @@ public class AsteroideService {
 
     public Asteroide getMaxAsteroide() throws IOException {
 
-        List<Asteroide> listaAsteroides = this.font.getAsteroide();
+        List<Asteroide> listaAsteroides = this.font.getAsteroide(LocalDateTime.now());
 
 
         return Collections.max(listaAsteroides, Comparator.comparingDouble(Asteroide-> Asteroide.getDiametre()));
     }
     public Asteroide getMinAsteroide() throws IOException {
 
-        List<Asteroide> listaAsteroides = this.font.getAsteroide();
+        List<Asteroide> listaAsteroides = this.font.getAsteroide(LocalDateTime.now());
 
         return Collections.min(listaAsteroides, Comparator.comparingDouble(Asteroide-> Asteroide.getDiametre()));
     }
@@ -37,7 +38,7 @@ public class AsteroideService {
         List<Asteroide> aPerillosos = new ArrayList<>();
 
         //Aqui iter dmaunt s'array que me retorna es metode, i afeguesc es perillosos dins un altre arry
-        this.font.getAsteroide().forEach(asteroide ->{if(asteroide.isEsPerillos()) aPerillosos.add(asteroide);});
+        this.font.getAsteroide(LocalDateTime.now()).forEach(asteroide ->{if(asteroide.isEsPerillos()) aPerillosos.add(asteroide);});
         return aPerillosos;
     }
 }

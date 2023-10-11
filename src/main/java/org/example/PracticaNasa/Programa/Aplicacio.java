@@ -41,7 +41,13 @@ public class Aplicacio {
             } else if (accioAFer == 2) {
                 System.out.println(asteroideService.getMaxAsteroide());
             } else if (accioAFer == 3) {
-                System.out.println(asteroideService.getPerillos());
+                if(asteroideService.getPerillos().size() == 0){
+
+                    System.out.println("No hi ha cap asteroide perillos! :)");
+                }else {
+
+                    System.out.println(asteroideService.getPerillos());
+                }
             }
         }
 

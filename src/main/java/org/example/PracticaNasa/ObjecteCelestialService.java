@@ -3,6 +3,7 @@ package org.example.PracticaNasa;
 import org.example.PracticaNasa.Fonts.FontsI;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,12 +25,14 @@ public class ObjecteCelestialService <T extends ObjectCelestial>{
         return 0;
     }
 
+    /*
     public List<T> getPerillos() throws IOException {
 
-       List<T> aPerillosos = (List<T>) this.font.getAsteroide();
+       List<T> aPerillosos = (List<T>) this.font.getAsteroide(LocalDateTime.now());
 
        return aPerillosos.stream().filter(oc -> oc.isPerillos()).toList();
 
-
     }
+
+     */
 }

@@ -7,6 +7,8 @@ import org.example.PracticaNasa.Asteroides.Asteroide;
 import org.example.PracticaNasa.Connexio.Connection;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,12 @@ public class PolitecnicService implements FontsI {
 
 
     private final String URL_POLITECNIC = "https://theteacher.codiblau.com/public/exercicis/nasa";
-    public List<Asteroide> getAsteroide() throws IOException {
+    public List<Asteroide> getAsteroide(LocalDateTime fetxaActual) throws IOException {
 
-        String avuiParse = "2023-10-03";
+        //Aqui nomes posa es format de fetxa "YYYY-MM-DD"
+        DateTimeFormatter formatFetxa = DateTimeFormatter.ISO_LOCAL_DATE;
+
+        String avuiParse = fetxaActual.format(formatFetxa);
 
         final String url = URL_POLITECNIC + "?date=" + avuiParse;
         String json = Connection.connexio(url);
