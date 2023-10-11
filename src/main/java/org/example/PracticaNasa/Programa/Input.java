@@ -16,6 +16,7 @@ public class Input {
         System.out.println("Font:");
         System.out.println("1.Nasa");
         System.out.println("2.Politecnic");
+        System.out.println("3.Sortir");
         System.out.println();
         System.out.print("Quina opció vols:");
 
@@ -24,10 +25,10 @@ public class Input {
             opcio = TractamentExcepcioInt.parseigAInt();
 
             if (opcio == 1){
-
                 return opcio;
             } else if (opcio == 2) {
-
+                return opcio;
+            }else if (opcio == 3){
                 return opcio;
             }
         }
@@ -40,7 +41,8 @@ public class Input {
         System.out.println("1.Ateroide més petits");
         System.out.println("2.Asteroide més grans");
         System.out.println("3.Asteroides perillosos");
-        System.out.println("4.Sortir");
+        System.out.println("4.Tornar enrrere");
+        System.out.println("5.Sortir");
         System.out.println();
         System.out.print("Quina opció vols:");
 
@@ -55,6 +57,8 @@ public class Input {
             } else if (opcio == 3) {
                 return opcio;
             } else if (opcio == 4) {
+                return opcio;
+            }else if (opcio == 5){
                 return opcio;
             }
         }

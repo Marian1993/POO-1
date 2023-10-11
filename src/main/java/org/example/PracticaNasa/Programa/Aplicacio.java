@@ -13,15 +13,17 @@ public class Aplicacio {
     public static void Aplicacio() throws IOException {
 
         //En aquestes dues variables s'elegueixen les opcions
-
         int fonts = 0;
         int accioAFer = 0;
 
-        while (accioAFer != 4) {
+        //Fins que no eleguesqui l'opcio de sortir(4) es repetira
+        while (accioAFer != 5) {
 
             fonts = Input.Fonts();
+            if(fonts == 3){
+                break;
+            }
             accioAFer = Input.AccioAFer();
-
 
             AsteroideService asteroideService = null;
 
